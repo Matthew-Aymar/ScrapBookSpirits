@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cajjvube855e"]
+[gd_scene load_steps=11 format=3 uid="uid://cajjvube855e"]
 
 [ext_resource type="Texture2D" uid="uid://di73brc6hqvb4" path="res://icon.svg" id="1_mlkwb"]
 [ext_resource type="Script" path="res://Scripts/TestMovement.cs" id="2_vcade"]
@@ -6,63 +6,39 @@
 [ext_resource type="Texture2D" uid="uid://ce3bw5e6wchic" path="res://IsoTiles/CompleteStair.png" id="3_x8kpy"]
 [ext_resource type="Texture2D" uid="uid://b6ur02hqft4xd" path="res://IsoTiles/Stairs.png" id="4_t5fs6"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_s2r22"]
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_imvo3"]
 texture = ExtResource("3_l36ex")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, 16)
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
 0:1/0 = 0
 0:1/0/texture_origin = Vector2i(0, 16)
-0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:1/0/physics_layer_0/angular_velocity = 0.0
 1:0/0 = 0
 1:0/0/texture_origin = Vector2i(0, 16)
-1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-1:0/0/physics_layer_0/angular_velocity = 0.0
 1:1/0 = 0
 1:1/0/texture_origin = Vector2i(0, 16)
-1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-1:1/0/physics_layer_0/angular_velocity = 0.0
-1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, 0, 0, 16, 32, 0, 0, -16)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w0ky1"]
 texture = ExtResource("4_t5fs6")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, 16)
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
 0:1/0 = 0
 0:1/0/texture_origin = Vector2i(0, 16)
-0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:1/0/physics_layer_0/angular_velocity = 0.0
 1:0/0 = 0
 1:0/0/texture_origin = Vector2i(0, 16)
-1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-1:0/0/physics_layer_0/angular_velocity = 0.0
 1:1/0 = 0
 1:1/0/texture_origin = Vector2i(0, 16)
-1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-1:1/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qw4xc"]
 texture = ExtResource("3_x8kpy")
 texture_region_size = Vector2i(256, 256)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, 16)
-0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, -16, -127.5, 34, -127, 47, -6, 108, 0, 110, 6, 108, 119.287, 52.3166, 122.5, 49.5, 119.5, 45.5)
 
 [sub_resource type="TileSet" id="TileSet_p63o1"]
 tile_shape = 1
 tile_size = Vector2i(64, 32)
-physics_layer_0/collision_layer = 1
-physics_layer_0/physics_material = SubResource("PhysicsMaterial_s2r22")
 sources/1 = SubResource("TileSetAtlasSource_imvo3")
 sources/2 = SubResource("TileSetAtlasSource_w0ky1")
 sources/3 = SubResource("TileSetAtlasSource_qw4xc")
@@ -109,19 +85,18 @@ layer_4/y_sort_origin = 0
 layer_4/z_index = 0
 layer_4/tile_data = PackedInt32Array()
 
-[node name="RigidBody2D" type="RigidBody2D" parent="Ground"]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Ground"]
 z_index = 1
-gravity_scale = 0.0
 script = ExtResource("2_vcade")
 
-[node name="Sprite2D" type="Sprite2D" parent="Ground/RigidBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Ground/CharacterBody2D"]
 y_sort_enabled = true
 scale = Vector2(0.25, 0.5)
 texture = ExtResource("1_mlkwb")
 offset = Vector2(0, -64)
 
-[node name="Camera2D" type="Camera2D" parent="Ground/RigidBody2D"]
+[node name="Camera2D" type="Camera2D" parent="Ground/CharacterBody2D"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground/RigidBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground/CharacterBody2D"]
 scale = Vector2(1.5, 0.75)
 shape = SubResource("CapsuleShape2D_sn8oq")
