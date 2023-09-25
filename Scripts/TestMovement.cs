@@ -10,6 +10,8 @@ public partial class TestMovement : CharacterBody2D
 	public float decel;
 	public bool moving;
 
+	public float movementMag;
+
 	Vector2 testPosition = new Vector2();
 	Vector2 movement = new Vector2();
 	Vector2 lastMovement = new Vector2();
@@ -27,19 +29,20 @@ public partial class TestMovement : CharacterBody2D
 	{
 		map = (TileMap)GetNode("../");
 		debugLine = (Line2D)GetNode("../../Line2D");
-		accel = 25;
-		speed = 4;
-		decel = 7;
+		accel = 40;
+		speed = 5;
+		decel = 10;
 
 		coords = new Vector2I();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		movement = new Vector2();
 		testPosition = this.Position;
 		vel = Velocity;
+		movementMag = Mathf.Sqrt(Velocity.X * Velocity.X + Velocity.Y * Velocity.Y);
 
 		if(Input.IsActionPressed("left"))
 		{
@@ -64,12 +67,12 @@ public partial class TestMovement : CharacterBody2D
 		{
 			moving = true;
 			vel += movement * accel * (float)delta;
+			movementMag = Mathf.Sqrt(Velocity.X * Velocity.X + Velocity.Y * Velocity.Y);
 
 			if(movement.X != lastMovement.X || movement.Y != lastMovement.Y)
 			{
-				float mag = Mathf.Sqrt(Velocity.X * Velocity.X + Velocity.Y * Velocity.Y);
 				Velocity = Vector2.Zero;
-				vel = new Vector2(movement.X * mag, movement.Y * mag);
+				vel = new Vector2(movement.X * movementMag, movement.Y * movementMag);
 
 				lastMovement = movement;
 			}
@@ -98,15 +101,29 @@ public partial class TestMovement : CharacterBody2D
 			colPos = colli.GetPosition();
 			surfaceVec = new Vector2(surfaceVec.Y, -1 * surfaceVec.X).Normalized();
 			debugLine.SetPointPosition(0, colPos);
-			debugLine.SetPointPosition(1, colPos + (surfaceVec * 100));
+			debugLine.SetPointPosition(1, colPos + (surfaceVec * 25));
 			
-			colli = MoveAndCollide(surfaceVec, true);
+			colli = MoveAndCollide(surfaceVec * movementMag, true);
 			if(colli != null)
 			{
 				//Probably on corner, this surface will lead to getting stuck inside
-				//Find and pick an adjacent movement that will free us
-				GD.Print("Will get stuck");
+				//Find and pick an adjacent surface that will free us
+				//GD.Print("Will get stuck");
+				
+				
+				Vector2 castPos = this.Position + movement.Rotated(Mathf.DegToRad(90));
+				
+				this.Position -= movement;
+				//surfaceVec = new Vector2(0.895f, 0.448f);
 			}
+			
+			float dist1 = movement.DistanceTo(surfaceVec);
+				float dist2 = movement.DistanceTo(surfaceVec * -1);
+
+				if(dist1 > dist2)
+					movement = surfaceVec * -1;
+				else
+					movement = surfaceVec;
 
 			/*
 			if(Mathf.Abs(0.895f - Mathf.Abs(surfaceVec.X)) > 0.001f || Mathf.Abs(0.448f - Mathf.Abs(surfaceVec.Y)) > 0.001f)
@@ -114,14 +131,7 @@ public partial class TestMovement : CharacterBody2D
 				
 			}
 			*/
-			float dist1 = movement.DistanceTo(surfaceVec);
-			float dist2 = movement.DistanceTo(surfaceVec * -1);
-
-			if(dist1 > dist2)
-				movement = surfaceVec * -1;
-			else
-				movement = surfaceVec;
-
+			
 			float mag = Mathf.Sqrt(Velocity.X * Velocity.X + Velocity.Y * Velocity.Y);
 			vel = new Vector2(movement.X * mag, movement.Y * mag);
 			
