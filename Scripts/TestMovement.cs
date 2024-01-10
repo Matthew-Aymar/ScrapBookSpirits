@@ -3,8 +3,6 @@ using System;
 
 public partial class TestMovement : CharacterBody2D
 {
-	public TileMap map;
-
 	public float speed;
 	public float accel;
 	public float decel;
@@ -21,14 +19,11 @@ public partial class TestMovement : CharacterBody2D
 
 	Vector2 colPos = new Vector2();
 	Vector2 surfaceVec = new Vector2();
-	public Line2D debugLine;
 
 	RandomNumberGenerator ran = new RandomNumberGenerator();
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		map = (TileMap)GetNode("../");
-		debugLine = (Line2D)GetNode("../../Line2D");
 		accel = 40;
 		speed = 5;
 		decel = 10;
@@ -99,8 +94,6 @@ public partial class TestMovement : CharacterBody2D
 			surfaceVec = colli.GetNormal();
 			colPos = colli.GetPosition();
 			surfaceVec = new Vector2(surfaceVec.Y, -1 * surfaceVec.X).Normalized();
-			debugLine.SetPointPosition(0, colPos);
-			debugLine.SetPointPosition(1, colPos + (surfaceVec * 25));
 
 			colli = MoveAndCollide(surfaceVec * movementMag, true);
 			if(colli != null)
