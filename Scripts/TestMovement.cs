@@ -26,7 +26,7 @@ public partial class TestMovement : CharacterBody2D
 	{
 		accel = 40;
 		speed = 5;
-		decel = 10;
+		decel = 8;
 
 		coords = new Vector2I();
 	}

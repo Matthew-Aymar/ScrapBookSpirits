@@ -32,45 +32,43 @@ zoom = Vector2(2, 2)
 polygon = PackedVector2Array(-12, 0, 0, -6, 12, 0, 0, 6)
 
 [node name="BigHut" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(-1377, -85)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("7_axbpu")
 
 [node name="Kubo" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(-326, 180)
+position = Vector2(-950, 492)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("9_myw1h")
 
 [node name="ThatchShed" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(-1187, 243)
-scale = Vector2(0.125, 0.125)
+position = Vector2(-1706, 157)
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("10_f30b1")
 
 [node name="ThatchSlant" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(-1584, 479)
+position = Vector2(-1709, 586)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("11_ckbeb")
 
 [node name="BoxShed" type="Sprite2D" parent="."]
 top_level = true
 y_sort_enabled = true
-position = Vector2(-389, -178)
+position = Vector2(-772, -118)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("8_rg3il")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="BoxShed"]
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="BoxShed/StaticBody2D"]
+visible = false
 polygon = PackedVector2Array(36, 696, 1100, 112, 332, -292, -732, 292)
 
 [node name="Area2D" type="Area2D" parent="BoxShed"]
 script = ExtResource("8_uln5w")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BoxShed/Area2D"]
+visible = false
 polygon = PackedVector2Array(1312, 56, 1304, -488, 332, -1036, -1000, -328, -1004, 280, -688, 272)
 
 [node name="Line2D" type="Line2D" parent="."]
