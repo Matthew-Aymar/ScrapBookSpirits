@@ -1,7 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cajjvube855e"]
+[gd_scene load_steps=22 format=3 uid="uid://cajjvube855e"]
 
 [ext_resource type="Texture2D" uid="uid://di73brc6hqvb4" path="res://icon.svg" id="1_mlkwb"]
 [ext_resource type="Script" path="res://Scripts/TestMovement.cs" id="2_vcade"]
+[ext_resource type="Script" path="res://Scripts/CombatMovement.cs" id="3_24qgr"]
+[ext_resource type="Texture2D" uid="uid://k1rqnh4vaiqv" path="res://CombatSprites/Wisp/WispIdle-Sheet.png" id="3_l610x"]
+[ext_resource type="Texture2D" uid="uid://bv1vq546mfeli" path="res://CombatSprites/Wisp/WispForward-Sheet.png" id="5_0f4on"]
 [ext_resource type="Texture2D" uid="uid://dbype13q7c8g8" path="res://VillageBuildings/BigHut.png" id="7_axbpu"]
 [ext_resource type="Texture2D" uid="uid://0eg56m8ocb1e" path="res://VillageBuildings/BoxShed.png" id="8_rg3il"]
 [ext_resource type="Script" path="res://Scripts/SortAreaScript.cs" id="8_uln5w"]
@@ -9,10 +12,77 @@
 [ext_resource type="Texture2D" uid="uid://d02nb2nqyeoni" path="res://VillageBuildings/ThatchShed.png" id="10_f30b1"]
 [ext_resource type="Texture2D" uid="uid://b52m48lhnivko" path="res://VillageBuildings/ThatchSlant.png" id="11_ckbeb"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmyhx"]
+atlas = ExtResource("3_l610x")
+region = Rect2(0, 0, 256, 312)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxxps"]
+atlas = ExtResource("3_l610x")
+region = Rect2(256, 0, 256, 312)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_anqyy"]
+atlas = ExtResource("3_l610x")
+region = Rect2(512, 0, 256, 312)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i0td8"]
+atlas = ExtResource("5_0f4on")
+region = Rect2(0, 0, 256, 312)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8f65"]
+atlas = ExtResource("5_0f4on")
+region = Rect2(256, 0, 256, 312)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11u2x"]
+atlas = ExtResource("5_0f4on")
+region = Rect2(512, 0, 256, 312)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ow7aa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmyhx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxxps")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_anqyy")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i0td8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r8f65")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_11u2x")
+}],
+"loop": true,
+"name": &"Move",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r3g4i"]
+size = Vector2(128, 256)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7q0cx"]
+size = Vector2(1920, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t4irh"]
+size = Vector2(20, 1080)
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" type="CharacterBody2D" parent="."]
+process_mode = 4
+visible = false
 z_index = 1
+position = Vector2(-1270, 0)
 floor_stop_on_slope = false
 floor_constant_speed = true
 floor_block_on_wall = false
@@ -25,36 +95,38 @@ scale = Vector2(0.25, 0.5)
 texture = ExtResource("1_mlkwb")
 offset = Vector2(0, -64)
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(2, 2)
-
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Player"]
 polygon = PackedVector2Array(-12, 0, 0, -6, 12, 0, 0, 6)
 
 [node name="BigHut" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-1377, -85)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("7_axbpu")
 
 [node name="Kubo" type="Sprite2D" parent="."]
-position = Vector2(-950, 492)
+visible = false
+position = Vector2(-1312, 492)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("9_myw1h")
 
 [node name="ThatchShed" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-1706, 157)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("10_f30b1")
 
 [node name="ThatchSlant" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-1709, 586)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("11_ckbeb")
 
 [node name="BoxShed" type="Sprite2D" parent="."]
+visible = false
 top_level = true
 y_sort_enabled = true
-position = Vector2(-772, -118)
+position = Vector2(-1505, -118)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("8_rg3il")
 
@@ -76,6 +148,40 @@ visible = false
 z_index = 5
 points = PackedVector2Array(-377, -4, -115, -150)
 width = 5.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Combat" type="Node" parent="."]
+
+[node name="CombatPlayer" type="CharacterBody2D" parent="Combat"]
+position = Vector2(0, 382)
+script = ExtResource("3_24qgr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Combat/CombatPlayer"]
+sprite_frames = SubResource("SpriteFrames_ow7aa")
+animation = &"Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Combat/CombatPlayer"]
+position = Vector2(-4.5, 9)
+shape = SubResource("RectangleShape2D_r3g4i")
+
+[node name="Ground" type="StaticBody2D" parent="Combat"]
+position = Vector2(0, 530)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Combat/Ground"]
+shape = SubResource("RectangleShape2D_7q0cx")
+
+[node name="Wall_Left" type="StaticBody2D" parent="Combat"]
+position = Vector2(950, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Combat/Wall_Left"]
+shape = SubResource("RectangleShape2D_t4irh")
+
+[node name="Wall_Right" type="StaticBody2D" parent="Combat"]
+position = Vector2(-950, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Combat/Wall_Right"]
+shape = SubResource("RectangleShape2D_t4irh")
 
 [connection signal="body_entered" from="BoxShed/Area2D" to="BoxShed/Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="BoxShed/Area2D" to="BoxShed/Area2D" method="_on_body_exited"]
