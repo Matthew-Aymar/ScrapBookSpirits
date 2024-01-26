@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Godot;
 
-public class DeckManager : Node
+public partial class DeckManager : Node
 {
     private List<int> deck;                             //The list of cards set through the deckbuilding UI
     public List<int> activeDeck;                        //Cards to be shuffled mid combat

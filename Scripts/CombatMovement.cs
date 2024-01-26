@@ -34,8 +34,6 @@ public partial class CombatMovement : CharacterBody2D
 		accel = 35;
 		decel = 40;
 
-		force = 0;
-		grav = 75;
 		grounded = true;
 		drift = 45;
 
@@ -259,7 +257,7 @@ public partial class CombatMovement : CharacterBody2D
 		if(grounded)
 		{
 			force = 40;
-			grav = 75;
+			grav = 100;
 			grounded = false;
 		}
 		else
