@@ -21,6 +21,7 @@ public partial class CombatMovement : CharacterBody2D
 	public float force;
 	public float grav;
 	public bool grounded;
+	public float drift;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -34,8 +35,9 @@ public partial class CombatMovement : CharacterBody2D
 		decel = 40;
 
 		force = 0;
-		grav = 10;
+		grav = 75;
 		grounded = true;
+		drift = 45;
 
 		moveDir = new Vector2(0,0);
 	}
@@ -75,16 +77,35 @@ public partial class CombatMovement : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if(currentAction != "Idle")
+		if(currentAction != "Idle" && currentAction != "Jump")
 			Move(delta);
 		
 		if(currentAction == "Jump")
+		{
+			JumpMove(delta);
 			Jump(delta);
-
+		}
+			
 		Velocity = moveDir;
+		col = MoveAndCollide(Velocity, true);
+		if(col != null)
+		{
+			Node colNode = (Node)col.GetCollider();
+			if(colNode != null && colNode.Name != null)
+			{
+				if(colNode.Name.ToString().Contains("Wall"))
+				{
+					moveDir.X = 0;
+					Velocity = moveDir;
+				}
+			}
+		}
 		col = MoveAndCollide(Velocity);
 	}
 
+	/*
+	Decides if the input can switch the current action, along with any animation and other metadata changes associated with it
+	*/
 	private void InputResolve()
 	{
 		if(inputCode == 'I')
@@ -152,6 +173,9 @@ public partial class CombatMovement : CharacterBody2D
 		}
 	}
 
+	/*
+	Unique logic for each action type on when they can switch through the input resolve
+	*/
 	private bool IsActionDone()
 	{
 		if(currentAction == "Idle")
@@ -178,6 +202,9 @@ public partial class CombatMovement : CharacterBody2D
 		return false;
 	}
 
+	/*
+	Function to handle grounded movement along with acceleration and deceleration
+	*/
 	private void Move(double delta)
 	{
 		bool lastLeft = false;
@@ -197,23 +224,36 @@ public partial class CombatMovement : CharacterBody2D
 				moveDir.X = 0;
 		}
 		
-		if(currentAction == "Jump")
-		{
-			if((left && inputCode == 'L') || (!left && inputCode == 'R'))
-				moveDir *= 1.25f;
-			else if((left && inputCode != 'L') || (!left && inputCode != 'R'))
-				moveDir *= 0.75f;
-		}
-		else
-		{
-			if(lastLeft != left)
-				moveDir.X *= 0.5f;	
-		}
+		if(lastLeft != left)
+			moveDir.X *= 0.5f;	
 
 		if(left)
 			moveDir.X *= -1;
 	}
 
+	/*
+	Function to support ariel drift differently than grounded movement can
+	*/
+	private void JumpMove(double delta)
+	{
+		if(currentAction == "Jump")
+		{
+			if(inputCode == 'L')
+			{
+				moveDir.X -= drift * (float)delta;
+				moveDir.X = Mathf.Clamp(moveDir.X, -speed * 1.5f, speed * 1.5f);
+			}
+			else if(inputCode == 'R')
+			{
+				moveDir.X += drift * (float)delta;
+				moveDir.X = Mathf.Clamp(moveDir.X, -speed * 1.5f, speed * 1.5f);
+			}
+		}
+	}
+
+	/*
+	Starts and handles jumping phsyics using force and gravity variables
+	*/
 	private void Jump(double delta)
 	{
 		if(grounded)
@@ -229,12 +269,18 @@ public partial class CombatMovement : CharacterBody2D
 		}
 
 		moveDir.Y = -1 * force;
-
-		if(col != null && force < 0)
+		if(col != null )
 		{
-			grounded = true;
-			moveDir.Y = 0;
-			currentAction = "Movement";
+			Node colNode = (Node)col.GetCollider();
+			if(colNode != null && colNode.Name != null)
+			{
+				if(force < 0 && colNode.Name.Equals("Ground"))
+				{
+					grounded = true;
+					moveDir.Y = 0;
+					currentAction = "Movement";
+				}
+			}
 		}
 	}
 }

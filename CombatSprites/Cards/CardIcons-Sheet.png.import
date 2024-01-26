@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dwx3qk6xn1vut"
-path="res://.godot/imported/CardIcons-Sheet.png-4c6885ed442efb0c60f18ff28ee61045.ctex"
+path="res://.godot/imported/CardIcons-Sheet.png-a7ceb7340f8f91a829c195f3ddc42476.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://CombatSprites/U.I/Cards/CardIcons-Sheet.png"
-dest_files=["res://.godot/imported/CardIcons-Sheet.png-4c6885ed442efb0c60f18ff28ee61045.ctex"]
+source_file="res://CombatSprites/Cards/CardIcons-Sheet.png"
+dest_files=["res://.godot/imported/CardIcons-Sheet.png-a7ceb7340f8f91a829c195f3ddc42476.ctex"]
 
 [params]
 

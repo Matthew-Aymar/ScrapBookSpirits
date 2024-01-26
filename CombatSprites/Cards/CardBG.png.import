@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bh7o5k542lnm4"
-path="res://.godot/imported/CardBase_Black-Sheet.png-dbb14f42afb7e6bb83ef4c7538e285e1.ctex"
+uid="uid://sxttxulfhs8y"
+path="res://.godot/imported/CardBG.png-da309a585f282b4c1f7680c18d15f21a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://CombatSprites/U.I/Cards/CardBase_Black-Sheet.png"
-dest_files=["res://.godot/imported/CardBase_Black-Sheet.png-dbb14f42afb7e6bb83ef4c7538e285e1.ctex"]
+source_file="res://CombatSprites/Cards/CardBG.png"
+dest_files=["res://.godot/imported/CardBG.png-da309a585f282b4c1f7680c18d15f21a.ctex"]
 
 [params]
 
