@@ -52,7 +52,9 @@ public partial class PlayerTransition : AnimatedSprite2D
 				player.Visible = true;
 
 				Health hp = (Health)this.GetNode("../Combat_UI/Health");
+				Clock cl = (Clock)this.GetNode("../Combat_UI/Clock");
 				hp.StartText();
+				cl.StartClock();
 			}
 		}
 	}

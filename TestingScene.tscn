@@ -1,4 +1,4 @@
-[gd_scene load_steps=129 format=3 uid="uid://cajjvube855e"]
+[gd_scene load_steps=150 format=3 uid="uid://cajjvube855e"]
 
 [ext_resource type="Texture2D" uid="uid://di73brc6hqvb4" path="res://icon.svg" id="1_mlkwb"]
 [ext_resource type="Script" path="res://Scripts/TestMovement.cs" id="2_vcade"]
@@ -23,8 +23,12 @@
 [ext_resource type="Texture2D" uid="uid://baq7407a5co68" path="res://CombatSprites/U.I/Combat/Okay-Sheet.png" id="16_p46k2"]
 [ext_resource type="Script" path="res://Scripts/Health.cs" id="19_1kmh7"]
 [ext_resource type="Texture2D" uid="uid://b16watiud635a" path="res://CombatSprites/Wisp/PlayerSpawn_Fireball-Sheet.png" id="19_2pg2q"]
+[ext_resource type="Texture2D" uid="uid://ddiolh2oww381" path="res://CombatSprites/U.I/Combat/DrawClock-Sheet.png" id="20_3om50"]
 [ext_resource type="Texture2D" uid="uid://c16p5vixjdmhw" path="res://CombatSprites/Wisp/PlayerSpawn-Sheet.png" id="20_hxruu"]
 [ext_resource type="Script" path="res://Scripts/PlayerTransition.cs" id="20_konkj"]
+[ext_resource type="Texture2D" uid="uid://l2gywyjbl478" path="res://CombatSprites/U.I/Combat/DrawHands-Sheet.png" id="21_c5lgq"]
+[ext_resource type="Script" path="res://Scripts/Clock.cs" id="21_xf7pe"]
+[ext_resource type="Texture2D" uid="uid://b5qtnw8mkpfym" path="res://CombatSprites/U.I/Combat/DrawHandsBig-Sheet.png" id="22_18sgt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vu22f"]
 atlas = ExtResource("9_f4eh6")
@@ -634,6 +638,128 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ba5xq"]
+atlas = ExtResource("20_3om50")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axvek"]
+atlas = ExtResource("20_3om50")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66su1"]
+atlas = ExtResource("20_3om50")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wiyw4"]
+atlas = ExtResource("20_3om50")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y70xm"]
+atlas = ExtResource("20_3om50")
+region = Rect2(1024, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvign"]
+atlas = ExtResource("20_3om50")
+region = Rect2(1280, 0, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5pryg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ba5xq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_axvek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_66su1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wiyw4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y70xm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mvign")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q54uo"]
+atlas = ExtResource("21_c5lgq")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dq3qb"]
+atlas = ExtResource("21_c5lgq")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8bfm"]
+atlas = ExtResource("21_c5lgq")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irhk6"]
+atlas = ExtResource("21_c5lgq")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_riar5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q54uo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dq3qb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8bfm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_irhk6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rurcw"]
+atlas = ExtResource("22_18sgt")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ocax"]
+atlas = ExtResource("22_18sgt")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eec04"]
+atlas = ExtResource("22_18sgt")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4n5y"]
+atlas = ExtResource("22_18sgt")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_84btj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rurcw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ocax")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eec04")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t4n5y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_nmyhx"]
 atlas = ExtResource("3_l610x")
 region = Rect2(0, 0, 256, 312)
@@ -888,7 +1014,6 @@ self_modulate = Color(0.721569, 0.721569, 0.721569, 1)
 position = Vector2(768, -348)
 scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_jy1jp")
-animation = &"loop"
 autoplay = "default"
 flip_h = true
 script = ExtResource("10_61m3y")
@@ -896,12 +1021,33 @@ script = ExtResource("10_61m3y")
 [node name="Health" type="AnimatedSprite2D" parent="Combat/Combat_UI"]
 process_mode = 4
 visible = false
-position = Vector2(-819, -400)
+position = Vector2(-820, -400)
 rotation = -0.785398
 scale = Vector2(1.25, 1.25)
 sprite_frames = SubResource("SpriteFrames_dkwua")
 animation = &"lively"
 script = ExtResource("19_1kmh7")
+
+[node name="Clock" type="AnimatedSprite2D" parent="Combat/Combat_UI"]
+visible = false
+position = Vector2(820, -400)
+sprite_frames = SubResource("SpriteFrames_5pryg")
+autoplay = "default"
+script = ExtResource("21_xf7pe")
+
+[node name="SmallHand" type="AnimatedSprite2D" parent="Combat/Combat_UI/Clock"]
+position = Vector2(2, 6)
+rotation = 0.610865
+sprite_frames = SubResource("SpriteFrames_riar5")
+autoplay = "default"
+offset = Vector2(0, -14)
+
+[node name="BigHand" type="AnimatedSprite2D" parent="Combat/Combat_UI/Clock"]
+position = Vector2(2, 5)
+rotation = 0.610865
+sprite_frames = SubResource("SpriteFrames_84btj")
+autoplay = "default"
+offset = Vector2(3.375, -28.93)
 
 [node name="CombatPlayer" type="CharacterBody2D" parent="Combat"]
 process_mode = 4
